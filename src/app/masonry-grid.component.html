@@ -1,0 +1,8 @@
+Hello
+<div class="gridContainer">
+    <div *ngFor='let c of columns' class="columnContainer" [style.width]='c.Width'>
+        <div *ngFor='let i of c.Images' class="imageContainer">
+            <img src="{{i}}" />
+        </div>
+    </div>
+</div>
