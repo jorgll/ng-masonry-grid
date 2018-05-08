@@ -1,9 +1,4 @@
 .gridContainer {
-  /* display: "flex";
-  flex-direction: "column";
-  flex-wrap: "wrap"; */
-}
-
-.imageContainer {
-  /* align-self: "center"; */
+  display: flex;
+  flex-direction: row;
 }

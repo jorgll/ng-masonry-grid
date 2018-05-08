@@ -7,11 +7,10 @@ import { NumberSymbol } from "@angular/common";
   styleUrls: ["./masonry-grid.component.css"]
 })
 export class MasonryGridComponent implements OnInit {
-  @Input() ColumnCount: number;
-  @Input() VerticalGap: number;
-  @Input() HorizontalGap: number;
+  @Input() Columns: number;
+  @Input() Margin: number;
   @Input() Width: number;
-  @Input() Height: number;
+  private columnWidth: number;
 
   private columns: Column[] = [];
   private images: string[] = [
@@ -31,24 +30,23 @@ export class MasonryGridComponent implements OnInit {
     "https://tse1.mm.bing.net/th?id=OIP.Wm3PhgeZx52hgtykc2wAgwHaG8&amp;w=202&amp;h=188&amp;c=7&amp;o=5&amp;dpr=2&amp;pid=1.7"
   ];
 
+  constructor() {
+    this.columnWidth =
+      (this.Width - this.Columns * this.Margin - this.Margin) / this.Columns;
+  }
+
   ngOnInit(): void {
     // Initialize empty columns
-    const columnWidth =
-      (this.Width -
-        this.ColumnCount * this.HorizontalGap -
-        this.HorizontalGap) /
-      this.ColumnCount;
-    for (let i = 0; i < this.ColumnCount; i++) {
+    for (let i = 0; i < this.Columns; i++) {
       const c: Column = new Column();
       c.Images = [];
-      c.Width = columnWidth;
       this.columns.push(c);
     }
 
     // Assign images to columns
     let currentImageIndex = 0;
     this.images.map(image => {
-      this.columns[currentImageIndex % this.ColumnCount].Images.push(image);
+      this.columns[currentImageIndex % this.Columns].Images.push(image);
       currentImageIndex++;
     });
   }
@@ -56,5 +54,4 @@ export class MasonryGridComponent implements OnInit {
 
 export class Column {
   public Images: string[];
-  public Width: number;
 }
