@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from "@angular/core";
+import { Component, Input, OnInit, HostListener } from "@angular/core";
 import { NumberSymbol } from "@angular/common";
 
 @Component({
@@ -9,8 +9,8 @@ import { NumberSymbol } from "@angular/common";
 export class MasonryGridComponent implements OnInit {
   @Input() Columns: number;
   @Input() Margin: number;
-  @Input() Width: number;
   private columnWidth: number;
+  private width: number;
 
   private columns: Column[] = [];
   private images: string[] = [
@@ -30,12 +30,25 @@ export class MasonryGridComponent implements OnInit {
     "https://tse1.mm.bing.net/th?id=OIP.Wm3PhgeZx52hgtykc2wAgwHaG8&amp;w=202&amp;h=188&amp;c=7&amp;o=5&amp;dpr=2&amp;pid=1.7"
   ];
 
-  constructor() {
-    this.columnWidth =
-      (this.Width - this.Columns * this.Margin - this.Margin) / this.Columns;
+  @Input()
+  set Width(width: number) {
+    this.width = width;
+    if (this.Margin && this.Columns) {
+      this.updateColumnWidth();
+    }
+  }
+
+  get Width(): number {
+    return this.width;
   }
 
   ngOnInit(): void {
+    console.log("Width: " + this.Width);
+    console.log("Columns: " + this.Columns);
+    console.log("Margin: " + this.Margin);
+
+    this.updateColumnWidth();
+
     // Initialize empty columns
     for (let i = 0; i < this.Columns; i++) {
       const c: Column = new Column();
@@ -49,6 +62,12 @@ export class MasonryGridComponent implements OnInit {
       this.columns[currentImageIndex % this.Columns].Images.push(image);
       currentImageIndex++;
     });
+  }
+
+  public updateColumnWidth() {
+    // Initialize columnWidth
+    this.columnWidth = (this.width - this.Columns * this.Margin) / this.Columns;
+    console.log("columnWidth: " + this.columnWidth);
   }
 }
 

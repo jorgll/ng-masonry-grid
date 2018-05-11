@@ -1,6 +1,6 @@
-<div class='gridContainer' [style.width.px]='Width' [style.margin.px]='Margin'>
-    <div *ngFor='let c of columns; let i = index' [style.width.px]='columnWidth + Margin' [style.order]='i'>
-        <img *ngFor='let image of c.Images' src='{{image}}' [style.border-bottom.px]='VerticalGap' [style.width.px]='columnWidth'
+<div class='gridContainer' [style.width.px]="Width" [style.margin.px]="Margin">
+    <div *ngFor='let c of columns; let i = index' [style.width.px]="columnWidth + Margin" [style.order]='i'>
+        <img *ngFor='let image of c.Images' src='{{image}}' [style.border-bottom.px]="VerticalGap" [style.width.px]="columnWidth"
         />
     </div>
 </div>
